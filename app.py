@@ -111,7 +111,7 @@ df = load_data()
 if os.path.exists(LOGO_PATH):
     st.image(LOGO_PATH, width=220)
 
-st.title("💡 Krislite Lighting Finder — Dark Mode Edition")
+st.title("🔦Lighting Finder")
 st.markdown("---")
 
 
@@ -164,48 +164,48 @@ if st.button("Search Fixtures"):
     st.subheader(f"Found {len(results)} fixtures")
 
     # EXPORT BUTTONS
-    def export_excel():
-        out = EXPORT_FOLDER + "results.xlsx"
-        results.to_excel(out, index=False)
-        return out
+    # def export_excel():
+    #     out = EXPORT_FOLDER + "results.xlsx"
+    #     results.to_excel(out, index=False)
+    #     return out
 
-    def export_pdf():
-        out = EXPORT_FOLDER + "results.pdf"
-        doc = SimpleDocTemplate(out, pagesize=letter)
-        story = []
-        style = getSampleStyleSheet()["Normal"]
+    # def export_pdf():
+    #     out = EXPORT_FOLDER + "results.pdf"
+    #     doc = SimpleDocTemplate(out, pagesize=letter)
+    #     story = []
+    #     style = getSampleStyleSheet()["Normal"]
 
-        for _, r in results.iterrows():
-            story.append(Paragraph(f"<b>{r['model_name']} - {r['model_no']}</b>", style))
-            story.append(Paragraph(f"Brand: {r['brand']}", style))
-            story.append(Paragraph(f"Type: {r['type']}", style))
-            story.append(Paragraph(f"Mounting: {r['mounting']}", style))
-            story.append(Paragraph(f"Power: {r['power']}W", style))
-            story.append(Paragraph(f"Lumen: {r['lumen']}", style))
-            story.append(Paragraph(f"CRI: {r['cri']}", style))
-            story.append(Paragraph(f"Input Voltage: {r['ip_v']}", style))
-            story.append(Paragraph(f"IP Rating: {r['ip']}", style))
+    #     for _, r in results.iterrows():
+    #         story.append(Paragraph(f"<b>{r['model_name']} - {r['model_no']}</b>", style))
+    #         story.append(Paragraph(f"Brand: {r['brand']}", style))
+    #         story.append(Paragraph(f"Type: {r['type']}", style))
+    #         story.append(Paragraph(f"Mounting: {r['mounting']}", style))
+    #         story.append(Paragraph(f"Power: {r['power']}W", style))
+    #         story.append(Paragraph(f"Lumen: {r['lumen']}", style))
+    #         story.append(Paragraph(f"CRI: {r['cri']}", style))
+    #         story.append(Paragraph(f"Input Voltage: {r['ip_v']}", style))
+    #         story.append(Paragraph(f"IP Rating: {r['ip']}", style))
 
-            if r["image_file"]:
-                story.append(RLImage(IMAGE_FOLDER + r["image_file"], width=160, height=60))
+    #         if r["image_file"]:
+    #             story.append(RLImage(IMAGE_FOLDER + r["image_file"], width=160, height=60))
 
-            story.append(Spacer(1, 15))
+    #         story.append(Spacer(1, 15))
 
-        doc.build(story)
-        return out
+    #     doc.build(story)
+    #     return out
 
-    colA, colB = st.columns(2)
-    if colA.button("⬇ Export Excel"):
-        fpath = export_excel()
-        with open(fpath, "rb") as f:
-            st.download_button("Download Excel File", f, "results.xlsx")
+    # colA, colB = st.columns(2)
+    # if colA.button("⬇ Export Excel"):
+    #     fpath = export_excel()
+    #     with open(fpath, "rb") as f:
+    #         st.download_button("Download Excel File", f, "results.xlsx")
 
-    if colB.button("⬇ Export PDF"):
-        fpath = export_pdf()
-        with open(fpath, "rb") as f:
-            st.download_button("Download PDF File", f, "results.pdf")
+    # if colB.button("⬇ Export PDF"):
+    #     fpath = export_pdf()
+    #     with open(fpath, "rb") as f:
+    #         st.download_button("Download PDF File", f, "results.pdf")
 
-    st.markdown("---")
+    # st.markdown("---")
 
     # ============================================================
     # DISPLAY RESULTS
@@ -237,7 +237,7 @@ if st.button("Search Fixtures"):
                     st.write(f"**RGB:** {r['RGB']}")
                     st.write(f"**RGBW:** {r['RGBW']}")
                     st.write(f"**Beam:** {r['beam']}")
-                    st.write(f"**Comment:** {r['comment']}")
+                    st.write(f"**Notes:** {r['comment']}")
 
     else:  # GRID VIEW
         cols = st.columns(4)
@@ -253,3 +253,4 @@ if st.button("Search Fixtures"):
                     st.write(f"CRI {r['cri']} | IP{r['ip']}")
 
             index = (index + 1) % 4
+
